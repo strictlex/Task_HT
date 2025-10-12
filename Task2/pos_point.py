@@ -1,12 +1,12 @@
 # Считываем радиус и координаты окружности из file1.txt
 with open(
-    "file1.txt", "r", encoding="utf-8"
+    "/Users/aleksey/Documents/python/Tasks_HT/Task2/file1.txt", "r", encoding="utf-8"
 ) as f1:
     x0, y0 = [int(i) for i in f1.readline().split()]
     r = int(f1.readline()) ** 2
 # Считываем координаты точек из file2.txt
 with open(
-    "file2.txt", "r", encoding="utf-8"
+    "/Users/aleksey/Documents/python/Tasks_HT/Task2/file2.txt", "r", encoding="utf-8"
 ) as f2:
     cnt_point = len(f2.readlines())
     f2.seek(0)
