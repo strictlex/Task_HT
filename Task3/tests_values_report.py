@@ -1,7 +1,7 @@
 import json
 # создаем переменные из считынных файлов json
-file_t = "/Users/aleksey/Documents/python/Tasks_HT/Task3/tests.json"
-file_v = "/Users/aleksey/Documents/python/Tasks_HT/Task3/values (1).json"
+file_t = "tests.json"
+file_v = "values (1).json"
 with open(file_t, "r", encoding="utf-8") as tests:
     data_tests = json.load(tests)
 with open(file_v, "r", encoding="utf-8") as values:
@@ -34,7 +34,7 @@ for lst in data_tests.values():
 data_report = {"report": data_tests["tests"]}
 
 
-with open("/Users/aleksey/Documents/python/Tasks_HT/Task3/report.json", "w", encoding="utf-8") as report:
+with open("report.json", "w", encoding="utf-8") as report:
     json.dump(
         data_report,
         report,
@@ -44,3 +44,4 @@ with open("/Users/aleksey/Documents/python/Tasks_HT/Task3/report.json", "w", enc
         sort_keys=True,
         default=str,
     )
+print(f'Из файлов "valeus (1).json" и "tests.json" создан файл "report.json"')
