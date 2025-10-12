@@ -1,2 +1,0 @@
-# Pislegin Aleksey
-# Python 
