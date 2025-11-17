@@ -37,6 +37,6 @@ data_report = input("Введите путь расположение для ф�
 print()
 
 with open(data_report, "w", encoding="utf-8") as d_r:
-    json.dump(report, d_r, indent=2, ensure_ascii=False, sort_keys=True, default=str)
+    json.dump(report, d_r, indent=2, ensure_ascii=False, sort_keys=True)
 
 print(f"Файл report.json создан в директории {data_report}")
