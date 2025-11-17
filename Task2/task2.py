@@ -28,4 +28,3 @@ def pos_points(file1, file2):
 
 
 print(*pos_points(f1, f2), sep="\n")
-# print(pos_points(r"/Users/aleksey/Documents/python/Tasks_HT/Task2/centr_rad.txt",r"/Users/aleksey/Documents/python/Tasks_HT/Task2/coord_points.txt"))
