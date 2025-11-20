@@ -1,11 +1,11 @@
 import argparse
 import os
 
-def check_exsist(f1,f2):
-    if not os.path.isfile(f1):
-        raise ValueError(f' Файл {f1} не найден!')
-    elif not os.path.isfile(f2):
-        raise ValueError(f' Файл {f2} не найден!')
+def check_path(f1,f2):
+    for el in (f1,f2):
+        if not os.path.isfile(el):
+            raise ValueError(f' Файл {el} не найден!')
+    
     return f1,f2
 
 def interactive_input():
@@ -33,7 +33,7 @@ def main():
             print("\nИнтерактивный режим")
             f1, f2 = interactive_input()
 
-        check_exsist(f1,f2)
+        check_path(f1,f2)
 
 
         print(*pos_points(f1, f2), sep="\n")
