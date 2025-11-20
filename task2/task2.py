@@ -17,7 +17,7 @@ def interactive_input():
 def main():
     parser = argparse.ArgumentParser(
         description="Программа расчитывает положение точек относительно окружности эллипса",
-        epilog="Пример: Режим командной строки - python task2.py --file1 centr_rad.txt --file2 coord_points.txt\nИнтерактивный режим - python task2.py\nЕсли файлы находятся не в папке с текущей программой - нужно указать абсолютный путь файла",
+        epilog="Пример:\npython task2.py --file1 centr_rad.txt --file2 coord_points.txt\npython task2.py (Интерактивный режим)\nЕсли файлы находятся не в папке с текущей программой - нужно указать абсолютный путь к файлу",
         formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("--file1",help="Введите название файла с коориднатами центра эллипса и радиусами",)
     parser.add_argument("--file2", help="Введите название файла с коориднатами точек")

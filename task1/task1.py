@@ -32,7 +32,7 @@ def interactive_input():
 def main():
     parser = argparse.ArgumentParser(
         description="Программа позваляет вычислить шаг двух круговых массивов",
-        epilog="Примеры:\npython task1.py --n1 5 --m1 3 --n2 4 --m2 2\npython task1.py (для интерактивного режима)\n❗️ Числа для массива и шаг массива должны быть положительными и целыми числами.\n❗️ Длина шага должна быть меньше самого массива",
+        epilog="Пример:\npython task1.py --n1 5 --m1 3 --n2 4 --m2 2\npython task1.py (Интерактивный режим)\n❗️ Числа для массива и шаг массива должны быть положительными и целыми числами.\n❗️ Длина шага должна быть меньше самого массива",
         formatter_class=argparse.RawTextHelpFormatter,
     )
 

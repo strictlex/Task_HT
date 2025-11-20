@@ -24,7 +24,7 @@ def interactive_input():
 
 
 def main():
-    parser=argparse.ArgumentParser(description='Программа формирует файл report.json с заполненными полями value для структуры tests.json на основании values.json', epilog= '...', formatter_class=argparse.RawTextHelpFormatter)
+    parser=argparse.ArgumentParser(description='Программа формирует файл report.json с заполненными полями value для структуры tests.json на основании values.json', epilog= 'Пример:\npython task3.py --file1 values.json --file2 tests.json --file3 report.json\npython task3.py (Интерактивный режим)', formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('--file1', help='Введите название файла json который содержит результаты прохождения тестов с уникальными id:\n')
     parser.add_argument('--file2', help='Введите название файла json который содержит структуру для построения отчета на основе прошедших тестов:\n')
     parser.add_argument('--file3', help='Введите название файла json который будет заполнен полями value для структуры tests.json на основании values.json:\n')
