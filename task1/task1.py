@@ -1,70 +1,78 @@
 import argparse
+import os
 
-
-def circle_massiv(n, m):
-    if n <= 0 or m <= 0:
-        raise ValueError("Длина массива и шаг должны быть положительными числами")
-    if m > n:
-        raise ValueError("Длина шага не может быть больше самого массива")
-
-    lst = list(range(1, n + 1))
-    circle = lst.copy()
-    circle_m = []
-    for i in circle:
-        circle_m.append(circle[:m])
-        circle = circle[m - 1 :] + circle[: m - 1]
-        if circle_m[-1][-1] == lst[0]:
-            break
-    answer = ""
-    for el in circle_m:
-        answer += str(el[0])
-    return answer
-
+def check_exsist(f1,f2):
+    if not os.path.isfile(f1):
+        raise ValueError(f' Файл {f1} не найден!')
+    elif not os.path.isfile(f2):
+        raise ValueError(f' Файл {f2} не найден!')
+    return f1,f2
 
 def interactive_input():
-    n1 = int(input("Введите длину первого массива: "))
-    m1 = int(input("Введите интервал для первого массива: "))
-    n2 = int(input("Введите длину второго массива: "))
-    m2 = int(input("Введите интервал для второго массива: "))
-    return n1, m1, n2, m2
+    f1 = input("Введите путь к файлу с координатами центра и радиуса элипса: ")
+    f2 = input("Введите путь к файлу с координатами точек: ")
+    return f1, f2
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Программа позваляет вычислить шаг двух круговых массивов",
-        epilog="Примеры:\npython program.py --n1 5 --m1 3 --n2 4 --m2 2\npython program.py (для интерактивного режима)\n❗️ Числа для массива и шаг массива должны быть положительными и целыми числами.\n❗️ Длина шага должна быть меньше самого массива",
-        formatter_class=argparse.RawTextHelpFormatter,
-    )
-
-    parser.add_argument("--n1", type=int, help="Введите длину первого массива")
-    parser.add_argument("--m1", type=int, help="Введите шаг для первого массива")
-    parser.add_argument("--n2", type=int, help="Введите длину второго массива")
-    parser.add_argument("--m2", type=int, help="Введите шаг для второго массива")
+        description="Программа расчитывает положение точек относительно окружности эллипса",
+        epilog="Пример: Режим командной строки - python task2.py --file1 centr_rad.txt --file2 coord_points.txt\nИнтерактивный режим - python task2.py\nЕсли файлы находятся не в папке с текущей программой - нужно указать абсолютный путь файла",
+        formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument("--file1",help="Введите название файла с коориднатами центра эллипса и радиусами",)
+    parser.add_argument("--file2", help="Введите название файла с коориднатами точек")
 
     args = parser.parse_args()
 
     try:
-        if all([args.n1, args.m1, args.n2, args.m2]): #Если введены все аргументы запускает режим командной строки
-            print(
-                "\nРежим командной строки",
-            )
-            n1, m1, n2, m2 = args.n1, args.m1, args.n2, args.m2
+        if all([args.file1, args.file2]):
+            print("\nРежим командной строки")
+            f1, f2 = args.file1, args.file2
 
         else:
             print("\nИнтерактивный режим")
-            n1, m1, n2, m2 = interactive_input()
+            f1, f2 = interactive_input()
 
-        path1 = circle_massiv(n1, m1)
-        path2 = circle_massiv(n2, m2)
-        result = path1 + path2
-        print(f"\nПуть для массива {n1} с шагом {m1}: {path1}")
-        print(f"Путь для массива {n2} с шагом {m2}: {path2}")
-        print(f"Общий результат: {result}")
+        check_exsist(f1,f2)
 
+
+        print(*pos_points(f1, f2), sep="\n")
+    
     except ValueError as e:
         print(f"❌ Ошибка: {e}")
     except Exception as e:
         print(f"⚠️ Неизвестная ошибка: {e}")
+
+def pos_points(f1, f2):
+    with open(f1,"r",encoding="utf-8",) as file1:
+        if  len([int(i) for i in file1.readline().rstrip().split()]) != 2:
+            raise ValueError(f'В первой строке файла {f1}  - должно быть 2 числа')
+        if  len([int(i) for i in file1.readline().rstrip().split()]) != 2:
+            raise ValueError(f'Во второй строке файла  {f1}  - должно быть 2 числа радиуса')
+        file1.seek(0)
+        x, y = [int(i) for i in file1.readline().rstrip().split()]  # координаты центра элипса
+        
+        r1, r2 = [int(i) for i in file1.readline().rstrip().split()]  # радиусы элипса
+
+    with open(f2,"r",encoding="utf-8",) as file2:
+        for line in file2.readlines():
+            if len([int(i) for i in line.rstrip().split()]) != 2:
+                raise ValueError(f'В каждой строке файла {f2} должно быть по 2 числа')
+        file2.seek(0)
+        points = [[int(j) for j in i.split()]for i in [el.strip() for el in file2.readlines()]]  # список отчек
+        positions = []
+    for i in points:
+        answer = (((i[0] - x) ** 2 / r1**2) + ((i[1] - y) ** 2 / r2**2) - 1 )  # формула положения точки относительно элипса
+        if answer == 0:
+            positions.append(0)
+        elif answer < 0:
+            positions.append(1)
+        else:
+            positions.append(2)
+
+    return positions
+
+
 
 
 if __name__ == "__main__":
