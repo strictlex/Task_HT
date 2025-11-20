@@ -45,9 +45,7 @@ def main():
 
     try:
         if all([args.n1, args.m1, args.n2, args.m2]): #Если введены все аргументы запускает режим командной строки
-            print(
-                "\nРежим командной строки",
-            )
+            print("\nРежим командной строки")
             n1, m1, n2, m2 = args.n1, args.m1, args.n2, args.m2
 
         else:
